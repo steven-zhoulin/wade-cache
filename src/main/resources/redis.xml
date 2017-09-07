@@ -1,0 +1,44 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<redis>
+    <!--
+        1. 正常情况下连master, 当master异常切换至slave，并启动master健康检查线程。
+        2. 没配slave的情况下，当master异常时，将此bucket隔离。
+        3. 配有slave的情况下，当master异常时，不将bucket隔离，bucket透明切换至slave节点。
+        4. 当主备都异常的情况下，将bucket隔离出去。
+        2. 当master恢复正常时，再切换到master状态，释放所有slave链接。
+        3. 初始化时，同时验证master和slave的可用性，验证完后释放slave的链接，降低链接消耗。
+        
+        桶心跳检测思路:
+        如果桶心跳失败，如果SockIOPool做了备机，那么桶直接切到备机地址。并将SockIOBucket按备机地址重新初始化。
+                                                                    如果备机SockIOBucket初始化失败，那么直接将桶隔离。
+                        当前使用备机时，如果主又复活了，那么将自动切换至主。
+                        如果SockIOPool没做备机，那么直接将桶隔离，放入待恢复的桶列表中。
+    -->
+    
+    <default-datacenter>center1</default-datacenter>
+   
+    <datacenter name="center1" >
+        <cluster name="sna" desc="会话缓存">
+            <heartbeat-second>5</heartbeat-second>
+            <pool-size>5</pool-size>
+			<use-nio>false</use-nio>
+			
+            <address master="10.13.3.13:15001" slave="10.13.3.13:15001" />
+
+        </cluster>
+    </datacenter>
+    
+    <datacenter name="center2" >
+        <cluster name="sna" desc="会话缓存">
+            <heartbeat-second>5</heartbeat-second>
+            <pool-size>5</pool-size>
+            <use-nio>false</use-nio>
+            <address master="192.168.245.128:13001" slave="192.168.245.128:13001" />
+        </cluster>
+    </datacenter>
+    
+    <!-- 指明服务连接的中心。注: 只支持后模糊匹配 -->
+    <server name="app-node01-*"   connect="center2" />
+    <server name="app-node02-*"   connect="center1" />
+</redis>

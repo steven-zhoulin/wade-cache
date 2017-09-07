@@ -1,0 +1,25 @@
+﻿<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<localcaches>
+    
+    <!-- 只读缓存，数据需要一次性全量加载。-->
+    <readonly>
+        <!--
+            className: 缓存实现类  (必配参数)
+            cronExpr: 缓存清理时间 (可选参数，默认不自动清空。)
+            init: 系统初始化时是否立即初始化缓存 (可选参数, 默认不初始化)
+        -->
+        <cache className="com.ailk.cache.localcache.demo.Cache1" cronExpr="30 10 * * ?" init="true" />
+    </readonly>
+    
+    <!-- 读写缓存，数据按需加载，采用LRU淘汰机制。 -->
+    <readwrite>
+        <!--
+            name: 缓存名 (必配参数)
+            maxSize: 最大缓存记录数 (可选参数，默认10000条)
+            cronExpr: 缓存清理时间 (可选参数，默认不自动清空。)
+        -->
+        <cache name="COMMON_CACHE" maxSize="10000" cronExpr="29 10 * * ?" />
+    </readwrite>
+
+</localcaches>

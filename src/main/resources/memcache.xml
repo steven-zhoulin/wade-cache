@@ -1,0 +1,32 @@
+﻿<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<memcache>
+    
+    <!-- <default-datacenter>center1</default-datacenter> -->
+	
+    <datacenter name="center1" >
+        <cluster name="bcc_cache">
+            <heartbeat-second>2</heartbeat-second>
+            <pool-size>5</pool-size>
+            <use-nio>false</use-nio>
+            <address master="192.168.245.128:11101" slave="192.168.245.131:11111" />
+            <address master="192.168.245.131:11201" slave="192.168.245.128:11211" />
+        </cluster>
+    </datacenter>
+
+    <datacenter name="center2" >
+        <cluster name="bcc_cache">  
+            <heartbeat-second>2</heartbeat-second>
+            <pool-size>5</pool-size>
+            <use-nio>false</use-nio>
+            <address master="192.168.245.131:11101" slave="192.168.245.128:11111" />
+            <address master="192.168.245.131:11201" slave="192.168.245.128:11211" />
+        </cluster>
+    </datacenter>    
+    
+    
+    <!-- 指明服务连接的中心。注: 只支持后模糊匹配 -->
+    <server name="app-node01-*"   connect="center1" />
+    <server name="app-node02-*"   connect="center2" />
+
+</memcache>
