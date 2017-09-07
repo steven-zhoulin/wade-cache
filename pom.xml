@@ -55,11 +55,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -69,11 +64,17 @@
         </dependency>
 
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/jdom1.0.jar</systemPath>
+            <systemPath>${pom.basedir}/src/lib/jdom1.0.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -81,7 +82,7 @@
             <artifactId>quartz</artifactId>
             <version>1.6.6</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/quartz-all-1.6.6.jar</systemPath>
+            <systemPath>${pom.basedir}/src/lib/quartz-all-1.6.6.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -89,7 +90,12 @@
             <artifactId>apache</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/wade-apache.jar</systemPath>
+            <systemPath>${pom.basedir}/src/lib/wade-apache.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>
