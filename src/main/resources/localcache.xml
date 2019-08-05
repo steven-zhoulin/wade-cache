@@ -9,7 +9,7 @@
             cronExpr: 缓存清理时间 (可选参数，默认不自动清空。)
             init: 系统初始化时是否立即初始化缓存 (可选参数, 默认不初始化)
         -->
-        <cache className="com.ailk.cache.localcache.demo.Cache1" cronExpr="30 10 * * ?" init="true" />
+        <cache className="com.steven.cache.localcache.demo.Cache1" cronExpr="30 10 * * ?" init="true" />
     </readonly>
     
     <!-- 读写缓存，数据按需加载，采用LRU淘汰机制。 -->
